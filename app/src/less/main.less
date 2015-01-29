@@ -20,6 +20,13 @@
 
 @import 'variables.less';
 
+/**
+ * Body
+ */
+
+body {
+  background: #f0f0f0;
+}
 
 /**
  * Typography
@@ -68,13 +75,35 @@ h2 {
  */
 
 .navbar {
-  margin-top: 20px;
-  
+  margin-top: 0;
+  .navbar-brand {
+     a {
+      color: #fff;
+     }
+  }
   small {
     font-size: 60%;
   }
 }
 
+.navbar-inverse {
+  background: @navbar-inverse-bg;
+  background: -moz-linear-gradient(top, @navbar-inverse-bg 0%, darken(@navbar-inverse-bg, 3%) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@navbar-inverse-bg), color-stop(100%,darken(@navbar-inverse-bg, 3%)));
+  background: -webkit-linear-gradient(top, @navbar-inverse-bg 0%,darken(@navbar-inverse-bg, 3%) 100%);
+  background: -o-linear-gradient(top, @navbar-inverse-bg 0%,darken(@navbar-inverse-bg, 3%) 100%);
+  background: -ms-linear-gradient(top, @navbar-inverse-bg 0%,darken(@navbar-inverse-bg, 3%) 100%);
+  background: linear-gradient(to bottom, @navbar-inverse-bg 0%,darken(@navbar-inverse-bg, 3%) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@navbar-inverse-bg', endColorstr='darken(@navbar-inverse-bg, 3%)',GradientType=0 );
+}
+
+/**
+ * Main
+ */
+
+.main {
+  padding-top: 70px;
+}
 
 /**
  * Footer
@@ -100,7 +129,7 @@ h2 {
       a, a:visited {
         color: @gray-light;
         text-decoration: none;
-        font-size: 40px;
+        font-size: 1.5em;
         .transition( 250ms ease-in-out );
 
         &:hover {
@@ -114,7 +143,7 @@ h2 {
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
- * all the submodules and components we are using. 
+ * all the submodules and components we are using.
  *
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */

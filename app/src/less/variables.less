@@ -1,5 +1,5 @@
 /**
- * These are the variables used throughout the application. This is where 
+ * These are the variables used throughout the application. This is where
  * overwrites that are not specific to components should be maintained.
  */
 
@@ -9,3 +9,34 @@
 
 @sansFontFamily: 'Roboto', sans-serif;
 
+// Inverted navbar
+// Reset inverted navbar basics
+@navbar-inverse-color:                      #fff;
+@navbar-inverse-bg:                         #440845;
+@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 #fff;
+@navbar-inverse-link-hover-color:           #fff;
+@navbar-inverse-link-hover-bg:              transparent;
+@navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
+@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 10%);
+@navbar-inverse-link-disabled-color:        #444;
+@navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+@navbar-inverse-brand-color:                @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color:          #fff;
+@navbar-inverse-brand-hover-bg:             transparent;
+
+// Inverted navbar toggle
+@navbar-inverse-toggle-hover-bg:            #333;
+@navbar-inverse-toggle-icon-bar-bg:         #fff;
+@navbar-inverse-toggle-border-color:        #333;
+
+//== Wells
+//
+//##
+
+@well-bg:                     #fff;
+@well-border:                 darken(@well-bg, 7%);
