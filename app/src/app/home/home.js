@@ -81,6 +81,13 @@ angular.module( 'ngBoilerplate.home', [
   };
 })
 
+.directive( 'pokeListItemDetail', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'home/home.pokemon-list-item-detail.tpl.html'
+  };
+})
+
 /**
  * And of course we define a controller for our route.
  */
@@ -97,10 +104,21 @@ angular.module( 'ngBoilerplate.home', [
     sprites: [null, null, null, null, null, null]
   };
 
+  // Initiate Pokemon detail data
+  $scope.pokemon = {
+    currentIndex: null
+  };
+
+  // Remove Pokemon data
   $scope.pokemonRemove = function(index) {
     $scope.pokemonList.ref[index] = { name: null };
     $scope.pokemonList.data[index] = null;
     $scope.pokemonList.sprites[index] = null;
+  };
+
+  // Show Pokemon detail
+  $scope.pokemonView = function(index) {
+    $scope.pokemon.currentIndex = index;
   };
 
   // Get Pokedex
@@ -112,7 +130,6 @@ angular.module( 'ngBoilerplate.home', [
   // TODO: Avoid duplicates
   $scope.$watch('pokemonList.ref', function(pokemonRefNew, pokemonRefOld){
 
-
     var indexOfChangedItem = null;
 
     for( var i = 0; i < pokemonRefNew.length; i++ ) {
@@ -121,7 +138,7 @@ angular.module( 'ngBoilerplate.home', [
         }
     }
 
-    if ( indexOfChangedItem !== null ) {
+    if ( indexOfChangedItem !== null && pokemonRefNew[indexOfChangedItem].name !== null ) {
       var pokemonDataUrl = pokemonRefNew[indexOfChangedItem].resource_uri;
       PokeapiServ.getPokemon(pokemonDataUrl).then(function(data){
 

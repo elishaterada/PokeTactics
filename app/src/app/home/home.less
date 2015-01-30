@@ -2,6 +2,66 @@
   margin-top: 40px;
 }
 
+.pokemon-type {
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    &.normal {
+        background: @type-normal;
+    }
+    &.fire {
+        background: @type-fire;
+    }
+    &.fighting {
+        background: @type-fighting;
+    }
+    &.water {
+        background: @type-water;
+    }
+    &.flying {
+        background: @type-flying;
+    }
+    &.grass {
+        background: @type-grass;
+    }
+    &.poison {
+        background: @type-poison;
+    }
+    &.electric {
+        background: @type-electric;
+    }
+    &.ground {
+        background: @type-ground;
+    }
+    &.psychic {
+        background: @type-psychic;
+    }
+    &.rock {
+        background: @type-rock;
+    }
+    &.ice {
+        background: @type-ice;
+    }
+    &.bug {
+        background: @type-bug;
+    }
+    &.dragon {
+        background: @type-dragon;
+    }
+    &.ghost {
+        background: @type-ghost;
+    }
+    &.dark {
+        background: @type-dark;
+    }
+    &.steel {
+        background: @type-steel;
+    }
+    &.fairy {
+        background: @type-fairy;
+    }
+}
+
 .pokemon-list-item {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -19,71 +79,45 @@
     .list-types {
         margin-left: 0;
         li {
-            color: #fff;
             font-size: 0.85em;
-            border-radius: 5px;
             width: 48%;
-            text-align: center;
             padding-top: 2px;
             padding-bottom: 2px;
             &:first-child {
                 margin-right: 4%;
             }
-            &.normal {
-                background: @type-normal;
-            }
-            &.fire {
-                background: @type-fire;
-            }
-            &.fighting {
-                background: @type-fighting;
-            }
-            &.water {
-                background: @type-water;
-            }
-            &.flying {
-                background: @type-flying;
-            }
-            &.grass {
-                background: @type-grass;
-            }
-            &.poison {
-                background: @type-poison;
-            }
-            &.electric {
-                background: @type-electric;
-            }
-            &.ground {
-                background: @type-ground;
-            }
-            &.psychic {
-                background: @type-psychic;
-            }
-            &.rock {
-                background: @type-rock;
-            }
-            &.ice {
-                background: @type-ice;
-            }
-            &.bug {
-                background: @type-bug;
-            }
-            &.dragon {
-                background: @type-dragon;
-            }
-            &.ghost {
-                background: @type-ghost;
-            }
-            &.dark {
-                background: @type-dark;
-            }
-            &.steel {
-                background: @type-steel;
-            }
-            &.fairy {
-                background: @type-fairy;
-            }
         }
     }
 }
 
+.pokemon-list-item-detail {
+    .img-pokemon {
+        margin: 0 auto;
+        max-height: 96px;
+    }
+    h5 {
+        text-transform: uppercase;
+        margin: 0;
+    }
+    .data-section {
+        margin-bottom: 10px;
+    }
+    .list-types {
+        margin: 0;
+        li {
+            font-size: 0.85em;
+            width: 48%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            &:first-child {
+                margin-right: 4%;
+            }
+        }
+    }
+    .list-abilities {
+        margin: 0;
+        li {
+            font-size: 0.85em;
+        }
+    }
+}

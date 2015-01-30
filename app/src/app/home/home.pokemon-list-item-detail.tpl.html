@@ -1,0 +1,70 @@
+<div ng-if="pokemon.currentIndex !== null && pokemonList.data[pokemon.currentIndex] !== null" class="pokemon-list-item-detail">
+    <div class="row">
+        <div class="col-sm-3">
+            <img ng-src="{{config.pokeapiSource + pokemonList.sprites[pokemon.currentIndex][0].image}}" class="img-pokemon img-responsive">
+        </div>
+        <div class="col-sm-9">
+            <h4>{{ pokemonList.data[pokemon.currentIndex].name }}</h4>
+            <div class="row data-section">
+                <div class="col-sm-3">
+                    <h5>Type</h5>
+                </div>
+                <div class="col-sm-9">
+                    <ul class="list-unstyled list-inline list-types">
+                        <li ng-repeat="type in pokemonList.data[pokemon.currentIndex].types" class="pokemon-type {{ type.name }}">
+                            {{ type.name }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row data-section">
+                <div class="col-sm-3">
+                    <h5>Abilities</h5>
+                </div>
+                <div class="col-sm-9">
+                    <ul class="list-unstyled list-inline list-abilities">
+                        <li ng-repeat="ability in pokemonList.data[pokemon.currentIndex].abilities" class="pokemon-ability {{ ability.name }}">
+                            {{ ability.name }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row data-section">
+                <div class="col-sm-3">
+                    <h5>Moves</h5>
+                </div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-section">
+                <h5>Stats</h5>
+                HighCharts Section<br>
+                HP {{ pokemonList.data[pokemon.currentIndex].hp }}<br>
+                Attack {{ pokemonList.data[pokemon.currentIndex].attack }}<br>
+                Defense {{ pokemonList.data[pokemon.currentIndex].defense }}<br>
+                Sp. Atk. {{ pokemonList.data[pokemon.currentIndex].sp_atk }}<br>
+                Sp. Def. {{ pokemonList.data[pokemon.currentIndex].sp_def }}<br>
+                Speed {{ pokemonList.data[pokemon.currentIndex].speed }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<pre>
+{{ pokemonList.data[pokemon.currentIndex] | json }}
+</pre>
