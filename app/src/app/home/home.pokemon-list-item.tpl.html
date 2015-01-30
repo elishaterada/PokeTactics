@@ -1,4 +1,4 @@
-<div ng-if="pokemonList.ref[$index].name === null">
+<div ng-if="pokemonList.ref[$index].name === null" class="pokemon-list-item">
     <form>
         <div class="form-group">
             <label class="control-label">Pokémon</label>
@@ -11,12 +11,11 @@
     <div class="row">
         <div class="col-sm-6">
             <button type="button" class="close" aria-label="Close"ng-click="pokemonRemove($index)"><span aria-hidden="true">&times;</span></button>
-            <div class="text-center">
-                <img ng-src="{{config.pokeapiSource + pokemonList.sprites[$index][0].image}}" class="img-pokemon img-responsive">
-            </div>
-            <h5 class="name">{{ pokemonList.data[$index].name }}</h5>
+            <img ng-src="{{config.pokeapiSource + pokemonList.sprites[$index][0].image}}" class="img-pokemon img-responsive">
+            <button type="button" class="btn btn-default btn-sm btn-block">View</button>
         </div>
         <div class="col-sm-6">
+            <h5 class="name">{{ pokemonList.data[$index].name }}</h5>
             <ul class="list-unstyled list-inline list-types">
                 <li ng-repeat="type in pokemonList.data[$index].types" class="{{ type.name }}">
                     {{ type.name }}
