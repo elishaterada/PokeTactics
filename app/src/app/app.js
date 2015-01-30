@@ -1,3 +1,5 @@
+/* global angular:false */
+
 angular.module( 'ngBoilerplate', [
   'templates-app',
   'templates-common',
@@ -17,7 +19,8 @@ angular.module( 'ngBoilerplate', [
 .run (function($rootScope) {
   // Define magic numbers used throughout the app
   $rootScope.config = {
-    appName: 'PokéTactics'
+    appName: 'PokéTactics',
+    pokeapiSource: 'http://pokeapi.co'
   };
 })
 

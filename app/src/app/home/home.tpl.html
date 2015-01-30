@@ -2,28 +2,11 @@
   <div class="col-sm-6">
     <div class="well">
       <div class="row">
-        <div class="col-sm-6">
-          Pokémon
+        <div ng-repeat-start="pokemon in pokemonList.ref" class="col-sm-6">
+          <poke-list-item></poke-list-item>
         </div>
-        <div class="col-sm-6">
-          Pokémon
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          Pokémon
-        </div>
-        <div class="col-sm-6">
-          Pokémon
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          Pokémon
-        </div>
-        <div class="col-sm-6">
-          Pokémon
-        </div>
+        <div class="clearfix" ng-if="$index % 2 === 1"></div>
+        <div ng-repeat-end=""></div>
       </div>
     </div>
   </div>
@@ -33,3 +16,7 @@
     </div>
   </div>
 </div>
+
+<pre>
+{{ pokemonList | json }}
+</pre>

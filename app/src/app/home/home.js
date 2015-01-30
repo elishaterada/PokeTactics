@@ -1,3 +1,5 @@
+/* global angular:false */
+
 /**
  * Each section of the site has its own module. It probably also has
  * submodules, though this boilerplate is too simple to demonstrate it. Within
@@ -25,7 +27,7 @@ angular.module( 'ngBoilerplate.home', [
   $stateProvider.state( 'home', {
     url: '/home',
     views: {
-      "main": {
+      'main': {
         controller: 'HomeCtrl',
         templateUrl: 'home/home.tpl.html'
       }
@@ -34,11 +36,107 @@ angular.module( 'ngBoilerplate.home', [
   });
 })
 
+.factory('PokeapiServ', function ($http, $q, $rootScope) {
+    return {
+        getPokedex: function() {
+          return $q.all([
+              $http.get($rootScope.config.pokeapiSource + '/api/v1/pokedex/1/')
+          ]).then(function (results) {
+              var aggregatedData = [];
+              angular.forEach(results, function (result) {
+                  aggregatedData = aggregatedData.concat(result.data);
+              });
+              return aggregatedData;
+          });
+        },
+        getPokemon: function(pokemonSource) {
+          return $q.all([
+              $http.get($rootScope.config.pokeapiSource + '/' + pokemonSource)
+          ]).then(function (results) {
+              var aggregatedData = [];
+              angular.forEach(results, function (result) {
+                  aggregatedData = aggregatedData.concat(result.data);
+              });
+              return aggregatedData;
+          });
+        },
+        getSprites: function(spritesSource) {
+          return $q.all([
+              $http.get($rootScope.config.pokeapiSource + '/' + spritesSource)
+          ]).then(function (results) {
+              var aggregatedData = [];
+              angular.forEach(results, function (result) {
+                  aggregatedData = aggregatedData.concat(result.data);
+              });
+              return aggregatedData;
+          });
+        }
+    };
+})
+
+.directive( 'pokeListItem', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'home/home.pokemon-list-item.tpl.html'
+  };
+})
+
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
-})
+.controller( 'HomeCtrl', ['$scope', 'PokeapiServ', function HomeController( $scope, PokeapiServ ) {
+
+  // Initiate Pokedex
+  $scope.pokedex = [];
+
+  // Initiate Pokemon List
+  // TODO: Create this with function?
+  $scope.pokemonList = {
+    ref: [{name: null}, {name: null}, {name: null}, {name: null}, {name: null}, {name: null}],
+    data: [null, null, null, null, null, null],
+    sprites: [null, null, null, null, null, null]
+  };
+
+  $scope.pokemonRemove = function(index) {
+    $scope.pokemonList.ref[index] = { name: null };
+    $scope.pokemonList.data[index] = null;
+    $scope.pokemonList.sprites[index] = null;
+  };
+
+  // Get Pokedex
+  PokeapiServ.getPokedex().then(function(data){
+    $scope.pokedex = data[0].pokemon;
+  });
+
+  // Get Pokemon
+  // TODO: Avoid duplicates
+  $scope.$watch('pokemonList.ref', function(pokemonRefNew, pokemonRefOld){
+
+
+    var indexOfChangedItem = null;
+
+    for( var i = 0; i < pokemonRefNew.length; i++ ) {
+        if( pokemonRefNew[i].name !== pokemonRefOld[i].name ) {
+          indexOfChangedItem = i;
+        }
+    }
+
+    if ( indexOfChangedItem !== null ) {
+      var pokemonDataUrl = pokemonRefNew[indexOfChangedItem].resource_uri;
+      PokeapiServ.getPokemon(pokemonDataUrl).then(function(data){
+
+        // Save pokemon data in Pokemon list array
+        $scope.pokemonList.data[indexOfChangedItem] = data[0];
+
+        // Get Sprites data
+        PokeapiServ.getSprites($scope.pokemonList.data[indexOfChangedItem].sprites[0].resource_uri).then(function(sprites){
+            $scope.pokemonList.sprites[indexOfChangedItem] = sprites;
+        });
+
+      });
+    }
+  }, true);
+
+}])
 
 ;
-

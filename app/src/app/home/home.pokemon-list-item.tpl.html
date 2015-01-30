@@ -1,0 +1,13 @@
+<div ng-if="pokemonList.ref[$index].name === null">
+    <form>
+        <div class="form-group">
+            <label class="control-label">Pokémon</label>
+            <select class="form-control" ng-model="pokemonList.ref[$index]" ng-options="opt as opt.name for opt in pokedex"></select>
+        </div>
+    </form>
+</div>
+
+<div ng-if="pokemonList.ref[$index].name !== null">
+    <img ng-src="{{config.pokeapiSource + pokemonList.sprites[$index][0].image}}"><br>
+    {{ pokemonList.data[$index].name }} <button class="btn btn-link" ng-click="pokemonRemove($index)"><i class="fa fa-close"></i></button>
+</div>
