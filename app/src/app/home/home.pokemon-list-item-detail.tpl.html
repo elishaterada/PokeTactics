@@ -36,31 +36,30 @@
                 <div class="col-sm-9">
                     <div class="row">
                         <div class="col-sm-4">
-                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                            <a>Move 1</a>
                         </div>
                         <div class="col-sm-4">
-                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                            <a>Move 2</a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
-                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                            <a>Move 3</a>
                         </div>
                         <div class="col-sm-4">
-                            <button type="button" class="btn btn-link btn-sm">Move 1</button>
+                            <a>Move 4</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="data-section">
-                <h5>Stats</h5>
-                HighCharts Section<br>
-                HP {{ pokemonList.data[pokemon.currentIndex].hp }}<br>
-                Attack {{ pokemonList.data[pokemon.currentIndex].attack }}<br>
-                Defense {{ pokemonList.data[pokemon.currentIndex].defense }}<br>
-                Sp. Atk. {{ pokemonList.data[pokemon.currentIndex].sp_atk }}<br>
-                Sp. Def. {{ pokemonList.data[pokemon.currentIndex].sp_def }}<br>
-                Speed {{ pokemonList.data[pokemon.currentIndex].speed }}
-            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <h5>Damage</h5>
+        </div>
+        <div class="col-sm-6">
+            <h5>Stats</h5>
+            <highchart id="chart-pokemon-stats" config="chartPokemonStats"></highchart>
         </div>
     </div>
 </div>

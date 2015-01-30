@@ -20,7 +20,12 @@ angular.module( 'ngBoilerplate', [
   // Define magic numbers used throughout the app
   $rootScope.config = {
     appName: 'PokéTactics',
-    pokeapiSource: 'http://pokeapi.co'
+    pokeapiSource: 'http://pokeapi.co',
+    colors: {
+      primary: '#26B5C0',
+      secondary: '#8D8DB7',
+      tertiary: '#C9D2DA'
+    }
   };
 })
 

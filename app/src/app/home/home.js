@@ -15,7 +15,8 @@
  * specified, as shown below.
  */
 angular.module( 'ngBoilerplate.home', [
-  'ui.router'
+  'ui.router',
+  'highcharts-ng'
 ])
 
 /**
@@ -109,6 +110,70 @@ angular.module( 'ngBoilerplate.home', [
     currentIndex: null
   };
 
+  // Get Pokemon Stats Chart
+  // Highcharts - Correlation Cause and Effect
+  var chartPokemonStats = function() {
+
+    $scope.chartPokemonStats = {
+      options: {
+        chart: {
+          type: 'bar',
+          zoomType: null,
+          style: {
+            fontFamily: 'Roboto',
+            fontWeight: 300
+          },
+          height: 200,
+          spacing: [0,0,0,0]
+        },
+        title: null,
+        legend: {
+          enabled: false
+        },
+        xAxis: [{
+          startOnTick: true,
+          endOnTick: true,
+          categories: ['HP', 'Attack', 'Defense', 'Sp. Atk.', 'Sp. Def', 'Speed'],
+          labels:{
+            enabled: true
+          },
+          tickWidth: 0,
+          lineWidth: 0
+        }],
+        yAxis: [{
+          min: 0,
+          max: 255, // Maximum possible stat
+          title: {
+            enabled: false
+          },
+          labels: {
+            enabled: false
+          },
+          gridLineWidth: 0
+        }],
+        credits: {
+          enabled: false
+        },
+        tooltip: {
+          enabled: false
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        }
+      },
+      series: [{
+          lineWidth: 0,
+          color: $scope.config.colors.primary,
+          data: null
+      }]
+    };
+
+  };
+
   // Remove Pokemon data
   $scope.pokemonRemove = function(index) {
     $scope.pokemonList.ref[index] = { name: null };
@@ -116,9 +181,23 @@ angular.module( 'ngBoilerplate.home', [
     $scope.pokemonList.sprites[index] = null;
   };
 
+  // Update Chart data
+  $scope.pokemonUpdate = function() {
+    $scope.chartPokemonStats.series[0].data = [
+      $scope.pokemonList.data[$scope.pokemon.currentIndex].hp,
+      $scope.pokemonList.data[$scope.pokemon.currentIndex].attack,
+      $scope.pokemonList.data[$scope.pokemon.currentIndex].defense,
+      $scope.pokemonList.data[$scope.pokemon.currentIndex].sp_atk,
+      $scope.pokemonList.data[$scope.pokemon.currentIndex].sp_def,
+      $scope.pokemonList.data[$scope.pokemon.currentIndex].speed
+    ];
+  };
+
   // Show Pokemon detail
   $scope.pokemonView = function(index) {
     $scope.pokemon.currentIndex = index;
+    chartPokemonStats();
+    $scope.pokemonUpdate();
   };
 
   // Get Pokedex
@@ -149,6 +228,9 @@ angular.module( 'ngBoilerplate.home', [
         PokeapiServ.getSprites($scope.pokemonList.data[indexOfChangedItem].sprites[0].resource_uri).then(function(sprites){
             $scope.pokemonList.sprites[indexOfChangedItem] = sprites;
         });
+
+        // Update charts data
+        $scope.pokemonUpdate();
 
       });
     }
