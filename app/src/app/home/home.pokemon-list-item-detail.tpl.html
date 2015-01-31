@@ -1,21 +1,21 @@
-<div ng-if="pokemonList.currentSelection !== null && !isEmpty( pokemonList.pokemon[pokemonList.currentSelection] )" class="pokemon-list-item-detail">
+<div class="pokemon-list-item-detail">
     <div class="row">
         <div class="col-sm-3">
             <div class="vertical-align img-pokemon-wrapper">
                 <div class="vertical-align-middle">
-                    <img ng-src="{{ config.pokeSpritesSource + pokemonList.pokemon[pokemonList.currentSelection].species + '.gif' | lowercase }}" class="img-pokemon">
+                    <img ng-src="{{ config.pokeSpritesSource + pokemonGetPokemonData(pokemonList.detail).species + '.gif' | lowercase }}" class="img-pokemon">
                 </div>
             </div>
         </div>
         <div class="col-sm-9">
-            <h4 class="name">{{ pokemonList.pokemon[pokemonList.currentSelection].species }}</h4>
+            <h4 class="name">{{ pokemonGetPokemonData(pokemonList.detail).species }}</h4>
             <div class="row data-section">
                 <div class="col-sm-3">
                     <h5>Type</h5>
                 </div>
                 <div class="col-sm-9">
                     <ul class="list-unstyled list-inline list-types">
-                        <li ng-repeat="type in pokemonList.pokemon[pokemonList.currentSelection].types" class="pokemon-type {{ type | lowercase }}">
+                        <li ng-repeat="type in pokemonGetPokemonData(pokemonList.detail).types" class="pokemon-type {{ type | lowercase }}">
                             {{ type }}
                         </li>
                     </ul>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-sm-9">
                     <ul class="list-unstyled list-inline list-abilities">
-                        <li ng-repeat="ability in pokemonList.pokemon[pokemonList.currentSelection].abilities" class="pokemon-ability">
+                        <li ng-repeat="ability in pokemonGetPokemonData(pokemonList.detail).abilities" class="pokemon-ability">
                             <span class="ability-label" popover="{{ pokemonGetAbilityData(ability).desc }}" popover-trigger="mouseenter">{{ ability }}</span>
                         </li>
                     </ul>
@@ -40,16 +40,16 @@
                 <div class="col-sm-9">
                     <ul class="list-unstyled list-inline list-moves">
                         <li class="pokemon-move">
-                            <span class="move-label">Select</span>
+                            <select chosen id="pokemon-{{pokemonList.detail}}-learnsets-0" class="form-control" ng-model="pokemonList.pokemon[pokemonList.detail].learnset[0]" ng-options="key as key for (key, value) in pokemonGetLearnsetData(pokemonList.detail).learnset" data-placeholder="Choose a move"></select>
                         </li>
                         <li class="pokemon-move">
-                            <span class="move-label">Select</span>
+                            <select chosen id="pokemon-{{pokemonList.detail}}-learnsets-1" class="form-control" ng-model="pokemonList.pokemon[pokemonList.detail].learnset[1]" ng-options="key as key for (key, value) in pokemonGetLearnsetData(pokemonList.detail).learnset" data-placeholder="Choose a move"></select>
                         </li>
                         <li class="pokemon-move">
-                            <span class="move-label">Select</span>
+                            <select chosen id="pokemon-{{pokemonList.detail}}-learnsets-2" class="form-control" ng-model="pokemonList.pokemon[pokemonList.detail].learnset[2]" ng-options="key as key for (key, value) in pokemonGetLearnsetData(pokemonList.detail).learnset" data-placeholder="Choose a move"></select>
                         </li>
                         <li class="pokemon-move">
-                            <span class="move-label">Select</span>
+                            <select chosen id="pokemon-{{pokemonList.detail}}-learnsets-3" class="form-control" ng-model="pokemonList.pokemon[pokemonList.detail].learnset[3]" ng-options="key as key for (key, value) in pokemonGetLearnsetData(pokemonList.detail).learnset" data-placeholder="Choose a move"></select>
                         </li>
                     </ul>
                 </div>

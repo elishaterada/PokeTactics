@@ -1,4 +1,4 @@
-/* global angular:false */
+/* global angular: false, exports: false */
 
 /**
  * Each section of the site has its own module. It probably also has
@@ -60,30 +60,43 @@ angular.module( 'ngBoilerplate.home', [
   // Initiate Pokemon Data
   $scope.pokemonDB = {
     pokedex: exports.BattlePokedex,
-    abilities: exports.BattleAbilities
+    abilities: exports.BattleAbilities,
+    learnsets: exports.BattleLearnsets
   };
 
   // Initiate Pokemon List
   // TODO: Create this with function?
   $scope.pokemonList = {
-    currentSelection: null,
+    detail: null,
     pokemon: [{},{},{},{},{},{}]
   };
 
   // Remove Pokemon data
   $scope.pokemonRemove = function(index) {
+    if ( $scope.pokemonList.detail === $scope.pokemonList.pokemon[index] ) {
+      $scope.pokemonList.detail = null;
+    }
     $scope.pokemonList.pokemon[index] = {};
   };
 
   // Show Pokemon detail
   $scope.pokemonView = function(index) {
-    $scope.pokemonList.currentSelection = index;
+    $scope.pokemonList.detail = $scope.pokemonList.pokemon[index];
     chartPokemonStats();
+  };
+
+  // Get Pokemon data from slug
+  $scope.pokemonGetPokemonData = function(pokemon) {
+    return $scope.pokemonDB.pokedex[pokemon];
   };
 
   $scope.pokemonGetAbilityData = function(ability) {
     var abilitySlug = $scope.convertToSlug(ability);
     return $scope.pokemonDB.abilities[abilitySlug];
+  };
+
+  $scope.pokemonGetLearnsetData = function(pokemon) {
+    return $scope.pokemonDB.learnsets[pokemon];
   };
 
   // Get Pokemon Stats Chart
@@ -148,13 +161,15 @@ angular.module( 'ngBoilerplate.home', [
       }]
     };
 
+    var baseStats = $scope.pokemonGetPokemonData($scope.pokemonList.detail).baseStats;
+
     $scope.chartPokemonStats.series[0].data = [
-      $scope.pokemonList.pokemon[$scope.pokemonList.currentSelection].baseStats.hp,
-      $scope.pokemonList.pokemon[$scope.pokemonList.currentSelection].baseStats.atk,
-      $scope.pokemonList.pokemon[$scope.pokemonList.currentSelection].baseStats.def,
-      $scope.pokemonList.pokemon[$scope.pokemonList.currentSelection].baseStats.spa,
-      $scope.pokemonList.pokemon[$scope.pokemonList.currentSelection].baseStats.spf,
-      $scope.pokemonList.pokemon[$scope.pokemonList.currentSelection].baseStats.spd
+      baseStats.hp,
+      baseStats.atk,
+      baseStats.def,
+      baseStats.spa,
+      baseStats.spf,
+      baseStats.spd
     ];
 
   };

@@ -1,9 +1,8 @@
 <div ng-if="isEmpty( pokemonList.pokemon[$index] )" class="pokemon-list-item">
     <form>
         <div class="form-group">
-            <label class="control-label sr-only">Pokémon</label>
-            <select chosen id="pokemon-select-{{ $index }}" class="form-control" ng-model="pokemonList.pokemon[$index]" ng-options="value as value.species for (key, value) in pokemonDB.pokedex" data-placeholder="Choose a Pokémon">
-            </select>
+            <label class="control-label sr-only">Choose a Pokémon</label>
+            <select chosen id="pokemon-select-{{ $index }}" class="form-control" ng-model="pokemonList.pokemon[$index]" ng-options="key as value.species for (key, value) in pokemonDB.pokedex" data-placeholder="Choose a Pokémon"></select>
         </div>
     </form>
 </div>
@@ -13,14 +12,14 @@
         <div class="col-sm-6">
             <div class="vertical-align img-pokemon-wrapper" ng-click="pokemonView($index)">
                 <div class="vertical-align-middle">
-                    <img ng-src="{{ config.pokeSpritesSource + pokemonList.pokemon[$index].species + '.gif' | lowercase }}" class="img-pokemon">
+                    <img ng-src="{{ config.pokeSpritesSource + pokemonGetPokemonData(pokemon).species + '.gif' | lowercase }}" class="img-pokemon">
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
-            <h5 class="name">{{ pokemonList.pokemon[$index].species }}</h5>
+            <h5 class="name">{{ pokemonGetPokemonData(pokemon).species }}</h5>
             <ul class="list-unstyled list-inline list-types">
-                <li ng-repeat="type in pokemonList.pokemon[$index].types" class="pokemon-type {{ type | lowercase }}">
+                <li ng-repeat="type in pokemonGetPokemonData(pokemon).types" class="pokemon-type {{ type | lowercase }}">
                     {{ type }}
                 </li>
             </ul>
