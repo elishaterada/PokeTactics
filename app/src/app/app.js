@@ -31,6 +31,13 @@ angular.module( 'ngBoilerplate', [
   $rootScope.isEmpty = function (obj) {
      return angular.equals({},obj);
   };
+  $rootScope.convertToSlug = function(text) {
+    return text
+        .toLowerCase()
+        .replace(/ /g,'')
+        .replace(/[^\w-]+/g,'')
+        ;
+  };
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {

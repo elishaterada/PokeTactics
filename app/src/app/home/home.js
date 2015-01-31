@@ -57,8 +57,11 @@ angular.module( 'ngBoilerplate.home', [
  */
 .controller( 'HomeCtrl', ['$scope', function HomeController( $scope ) {
 
-  // Initiate Pokedex
-  $scope.pokedex = exports.BattlePokedex;
+  // Initiate Pokemon Data
+  $scope.pokemonDB = {
+    pokedex: exports.BattlePokedex,
+    abilities: exports.BattleAbilities
+  };
 
   // Initiate Pokemon List
   // TODO: Create this with function?
@@ -76,6 +79,11 @@ angular.module( 'ngBoilerplate.home', [
   $scope.pokemonView = function(index) {
     $scope.pokemonList.currentSelection = index;
     chartPokemonStats();
+  };
+
+  $scope.pokemonGetAbilityData = function(ability) {
+    var abilitySlug = $scope.convertToSlug(ability);
+    return $scope.pokemonDB.abilities[abilitySlug];
   };
 
   // Get Pokemon Stats Chart
