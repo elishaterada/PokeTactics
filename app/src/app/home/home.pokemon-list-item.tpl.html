@@ -2,8 +2,7 @@
     <form>
         <div class="form-group">
             <label class="control-label sr-only">Pokémon</label>
-            <select class="form-control" ng-model="pokemonList.pokemon[$index]" ng-options="value as value.species for (key, value) in pokedex">
-                <option value="">Choose a Pokémon</option>
+            <select chosen id="pokemon-select-{{ $index }}" class="form-control" ng-model="pokemonList.pokemon[$index]" ng-options="value as value.species for (key, value) in pokedex" data-placeholder="Choose a Pokémon">
             </select>
         </div>
     </form>

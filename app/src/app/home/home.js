@@ -16,7 +16,8 @@
  */
 angular.module( 'ngBoilerplate.home', [
   'ui.router',
-  'highcharts-ng'
+  'highcharts-ng',
+  'localytics.directives'
 ])
 
 /**
