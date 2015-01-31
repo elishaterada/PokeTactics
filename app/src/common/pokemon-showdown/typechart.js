@@ -1,8 +1,5 @@
-// 3: Immune
-// 2: Resists
-// 1: Weak
-// 0: Normal
-
+/* jshint strict: false, -W099, -W116, -W004 */
+// 3: Immune, 2: Resists, 1: Weak, 0: Normal
 exports.BattleTypeChart = {
 	"Bug": {
 		damageTaken: {
