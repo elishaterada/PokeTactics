@@ -1,4 +1,4 @@
-/* global angular:false */
+/* global angular: false */
 
 var exports = {};
 
@@ -7,7 +7,8 @@ angular.module( 'ngBoilerplate', [
   'templates-common',
   'ngBoilerplate.home',
   'ngBoilerplate.about',
-  'ui.router'
+  'ui.router',
+  'angular-loading-bar'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {

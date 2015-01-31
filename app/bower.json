@@ -8,7 +8,9 @@
     "angular-bootstrap": "~0.10.0",
     "angular-ui-router": "~0.2",
     "highcharts-ng": "~0.0.7",
-    "angular-chosen-localytics": "~1.0.7"
+    "angular-chosen-localytics": "~1.0.7",
+    "angular-loading-bar": "~0.6.0",
+    "highcharts-release": "~4.0.4"
   },
   "dependencies": {}
 }
