@@ -1,8 +1,10 @@
 <div ng-if="isEmpty( pokemonList.pokemon[$index] )" class="pokemon-list-item">
     <form>
         <div class="form-group">
-            <label class="control-label">Pokémon</label>
-            <select class="form-control" ng-model="pokemonList.pokemon[$index]" ng-options="value as key for (key, value) in pokedex"></select>
+            <label class="control-label sr-only">Pokémon</label>
+            <select class="form-control" ng-model="pokemonList.pokemon[$index]" ng-options="value as value.species for (key, value) in pokedex">
+                <option value="">Choose a Pokémon</option>
+            </select>
         </div>
     </form>
 </div>
