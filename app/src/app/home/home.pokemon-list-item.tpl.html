@@ -1,26 +1,33 @@
-<div ng-if="pokemonList.ref[$index].name === null" class="pokemon-list-item">
+<div ng-if="isEmpty( pokemonList.pokemon[$index] )" class="pokemon-list-item">
     <form>
         <div class="form-group">
             <label class="control-label">Pokémon</label>
-            <select class="form-control" ng-model="pokemonList.ref[$index]" ng-options="opt as opt.name for opt in pokedex"></select>
+            <select class="form-control" ng-model="pokemonList.pokemon[$index]" ng-options="value as key for (key, value) in pokedex"></select>
         </div>
     </form>
 </div>
 
-<div ng-if="pokemonList.ref[$index].name !== null" class="pokemon-list-item">
+<div ng-if="!isEmpty( pokemonList.pokemon[$index] )" class="pokemon-list-item">
     <div class="row">
         <div class="col-sm-6">
-            <button type="button" class="close" aria-label="Close" ng-click="pokemonRemove($index)"><span aria-hidden="true">&times;</span></button>
-            <img ng-src="{{config.pokeapiSource + pokemonList.sprites[$index][0].image}}" class="img-pokemon img-responsive">
-            <button type="button" class="btn btn-default btn-sm btn-block" ng-click="pokemonView($index)">View</button>
+            <div class="vertical-align img-pokemon-wrapper" ng-click="pokemonView($index)">
+                <div class="vertical-align-middle">
+                    <img ng-src="{{ config.pokeSpritesSource + pokemonList.pokemon[$index].species + '.gif' | lowercase }}" class="img-pokemon">
+                </div>
+            </div>
         </div>
         <div class="col-sm-6">
-            <h5>{{ pokemonList.data[$index].name }}</h5>
+            <h5 class="name">{{ pokemonList.pokemon[$index].species }}</h5>
             <ul class="list-unstyled list-inline list-types">
-                <li ng-repeat="type in pokemonList.data[$index].types" class="pokemon-type {{ type.name }}">
-                    {{ type.name }}
+                <li ng-repeat="type in pokemonList.pokemon[$index].types" class="pokemon-type {{ type | lowercase }}">
+                    {{ type }}
                 </li>
             </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <button type="button" class="action" aria-label="Remove" ng-click="pokemonRemove($index)"><i class="fa fa-close"></i> Remove</button>
         </div>
     </div>
 </div>

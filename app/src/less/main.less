@@ -25,7 +25,7 @@
  */
 
 body {
-  background: #f0f0f0;
+  background: @brand-tertiary;
 }
 
 /**
@@ -69,6 +69,13 @@ h2 {
   color: #666;
 }
 
+.vertical-align {
+  display: table;
+  .vertical-align-middle {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
 
 /**
  * Navigation

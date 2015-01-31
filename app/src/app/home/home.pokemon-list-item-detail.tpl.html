@@ -1,18 +1,22 @@
-<div ng-if="pokemon.currentIndex !== null && pokemonList.data[pokemon.currentIndex] !== null" class="pokemon-list-item-detail">
+<div ng-if="pokemonList.currentSelection !== null && !isEmpty( pokemonList.pokemon[pokemonList.currentSelection] )" class="pokemon-list-item-detail">
     <div class="row">
         <div class="col-sm-3">
-            <img ng-src="{{config.pokeapiSource + pokemonList.sprites[pokemon.currentIndex][0].image}}" class="img-pokemon img-responsive">
+            <div class="vertical-align img-pokemon-wrapper">
+                <div class="vertical-align-middle">
+                    <img ng-src="{{ config.pokeSpritesSource + pokemonList.pokemon[pokemonList.currentSelection].species + '.gif' | lowercase }}" class="img-pokemon">
+                </div>
+            </div>
         </div>
         <div class="col-sm-9">
-            <h4>{{ pokemonList.data[pokemon.currentIndex].name }}</h4>
+            <h4 class="name">{{ pokemonList.pokemon[pokemonList.currentSelection].species }}</h4>
             <div class="row data-section">
                 <div class="col-sm-3">
                     <h5>Type</h5>
                 </div>
                 <div class="col-sm-9">
                     <ul class="list-unstyled list-inline list-types">
-                        <li ng-repeat="type in pokemonList.data[pokemon.currentIndex].types" class="pokemon-type {{ type.name }}">
-                            {{ type.name }}
+                        <li ng-repeat="type in pokemonList.pokemon[pokemonList.currentSelection].types" class="pokemon-type {{ type | lowercase }}">
+                            {{ type }}
                         </li>
                     </ul>
                 </div>
@@ -23,8 +27,8 @@
                 </div>
                 <div class="col-sm-9">
                     <ul class="list-unstyled list-inline list-abilities">
-                        <li ng-repeat="ability in pokemonList.data[pokemon.currentIndex].abilities" class="pokemon-ability {{ ability.name }}">
-                            {{ ability.name }}
+                        <li ng-repeat="ability in pokemonList.pokemon[pokemonList.currentSelection].abilities" class="pokemon-ability">
+                            <span class="ability-label">{{ ability }}</span>
                         </li>
                     </ul>
                 </div>
@@ -34,26 +38,25 @@
                     <h5>Moves</h5>
                 </div>
                 <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <a>Move 1</a>
-                        </div>
-                        <div class="col-sm-4">
-                            <a>Move 2</a>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-sm-4">
-                            <a>Move 3</a>
-                        </div>
-                        <div class="col-sm-4">
-                            <a>Move 4</a>
-                        </div>
-                    </div>
+                    <ul class="list-unstyled list-inline list-moves">
+                        <li class="pokemon-move">
+                            <span class="move-label">Select</span>
+                        </li>
+                        <li class="pokemon-move">
+                            <span class="move-label">Select</span>
+                        </li>
+                        <li class="pokemon-move">
+                            <span class="move-label">Select</span>
+                        </li>
+                        <li class="pokemon-move">
+                            <span class="move-label">Select</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row data-section">
         <div class="col-sm-6">
             <h5>Damage</h5>
         </div>
@@ -63,7 +66,3 @@
         </div>
     </div>
 </div>
-
-<pre>
-{{ pokemonList.data[pokemon.currentIndex] | json }}
-</pre>
