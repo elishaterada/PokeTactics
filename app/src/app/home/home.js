@@ -61,41 +61,71 @@ angular.module( 'ngBoilerplate.home', [
   $scope.pokemonDB = {
     pokedex: exports.BattlePokedex,
     abilities: exports.BattleAbilities,
-    learnsets: exports.BattleLearnsets
+    learnsets: exports.BattleLearnsets,
+    pokedexLearnsetsMap: exports.BattlePokedexLearnsetsMap
   };
 
   // Initiate Pokemon List
   // TODO: Create this with function?
   $scope.pokemonList = {
     detail: null,
-    pokemon: [{},{},{},{},{},{}]
+    pokemon: [
+      {key: null, learnset: null},
+      {key: null, learnset: null},
+      {key: null, learnset: null},
+      {key: null, learnset: null},
+      {key: null, learnset: null},
+      {key: null, learnset: null}
+    ]
   };
 
   // Remove Pokemon data
   $scope.pokemonRemove = function(index) {
-    if ( $scope.pokemonList.detail === $scope.pokemonList.pokemon[index] ) {
+
+    // Remove current view data if it's the Pokemon that's removed
+    if ( $scope.pokemonList.detail === index ) {
       $scope.pokemonList.detail = null;
     }
-    $scope.pokemonList.pokemon[index] = {};
+
+    // Reset Pokemon data
+    $scope.pokemonList.pokemon[index] = { key: null, learnset: null };
   };
 
   // Show Pokemon detail
   $scope.pokemonView = function(index) {
-    $scope.pokemonList.detail = $scope.pokemonList.pokemon[index];
+    $scope.pokemonList.detail = index;
     chartPokemonStats();
   };
 
   // Get Pokemon data from slug
   $scope.pokemonGetPokemonData = function(pokemon) {
+
+    // Convert index to pokemon key if queried from current Pokemon index
+    if ( typeof pokemon === 'number' ) {
+      pokemon = $scope.pokemonList.pokemon[pokemon].key;
+    }
+
     return $scope.pokemonDB.pokedex[pokemon];
   };
 
   $scope.pokemonGetAbilityData = function(ability) {
     var abilitySlug = $scope.convertToSlug(ability);
+
     return $scope.pokemonDB.abilities[abilitySlug];
   };
 
   $scope.pokemonGetLearnsetData = function(pokemon) {
+
+    // Convert index to Pokemon key if queried from current Pokemon index
+    if ( typeof pokemon === 'number' ) {
+      pokemon = $scope.pokemonList.pokemon[pokemon].key;
+    }
+
+    // Map special Pokemon (e.g. mega, alt-form) to its base specie for learnsets
+    if ( $scope.pokemonDB.pokedexLearnsetsMap[pokemon] !== undefined ) {
+      pokemon = $scope.pokemonDB.pokedexLearnsetsMap[pokemon];
+    }
+
     return $scope.pokemonDB.learnsets[pokemon];
   };
 

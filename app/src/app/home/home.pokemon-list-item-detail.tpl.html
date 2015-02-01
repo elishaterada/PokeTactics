@@ -28,7 +28,7 @@
                 <div class="col-sm-9">
                     <ul class="list-unstyled list-inline list-abilities">
                         <li ng-repeat="ability in pokemonGetPokemonData(pokemonList.detail).abilities" class="pokemon-ability">
-                            <span class="ability-label" popover="{{ pokemonGetAbilityData(ability).desc }}" popover-trigger="mouseenter">{{ ability }}</span>
+                            <span class="ability-label" popover="{{ pokemonGetAbilityData(ability).desc }}" popover-trigger="mouseenter" popover-placement="bottom">{{ ability }}</span>
                         </li>
                     </ul>
                 </div>
