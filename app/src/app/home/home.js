@@ -64,7 +64,9 @@ angular.module( 'ngBoilerplate.home', [
     learnsets: exports.BattleLearnsets,
     pokedexLearnsetsMap: exports.BattlePokedexLearnsetsMap,
     items: exports.BattleItems,
-    statuses: exports.BattleStatuses
+    statuses: exports.BattleStatuses,
+    types: exports.BattleTypes,
+    typesEffectiveness: exports.BattleTypesEffectiveness
   };
 
   // Initiate Pokemon List
@@ -97,6 +99,7 @@ angular.module( 'ngBoilerplate.home', [
   $scope.pokemonView = function(index) {
     $scope.pokemonList.detail = index;
     chartPokemonStats();
+    chartPokemonEffectiveness();
   };
 
   // Get Pokemon data from slug
@@ -131,8 +134,31 @@ angular.module( 'ngBoilerplate.home', [
     return $scope.pokemonDB.learnsets[pokemon];
   };
 
+  $scope.pokemonGetEffectinessColors = function(effectiveness) {
+    var color = null;
+
+    // Return color value for each effectiveness
+    // http://www.colourlovers.com/palette/3639010/Beach_House
+    switch (effectiveness) {
+      case 0.25:
+        color = '#7EE5ED';
+        break;
+      case 0.5:
+        color = '#82CDEE';
+        break;
+      case 2:
+        color = '#FCB9B7';
+        break;
+      case 4:
+        color = '#F98E99';
+        break;
+    }
+
+    return color;
+
+  };
+
   // Get Pokemon Stats Chart
-  // Highcharts - Correlation Cause and Effect
   var chartPokemonStats = function() {
 
     $scope.chartPokemonStats = {
@@ -203,6 +229,93 @@ angular.module( 'ngBoilerplate.home', [
       baseStats.spf,
       baseStats.spd
     ];
+
+  };
+
+  // Get Pokemon Effectiveness Chart
+  var chartPokemonEffectiveness = function() {
+    $scope.chartPokemonEffectiveness = {
+      options: {
+        chart: {
+          type: 'bar',
+          zoomType: null,
+          style: {
+            fontFamily: 'Roboto',
+            fontWeight: 300
+          },
+          spacing: [0,0,0,0]
+        },
+        title: null,
+        legend: {
+          enabled: false
+        },
+        xAxis: [{
+          type: 'category',
+          startOnTick: true,
+          endOnTick: true,
+          labels:{
+            enabled: true
+          },
+          tickWidth: 0,
+          lineWidth: 0
+        }],
+        yAxis: [{
+          min: 0,
+          max: 4.5, // Maximum possible stat
+          title: {
+            enabled: false
+          },
+          labels: {
+            enabled: false
+          },
+          gridLineWidth: 0
+        }],
+        credits: {
+          enabled: false
+        },
+        tooltip: {
+          enabled: false
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        }
+      },
+      series: [{
+          lineWidth: 0,
+          color: $scope.config.colors.primary,
+          data: null
+      }]
+    };
+
+    // Get types and set effectiveness on chart
+    var typeOne = $scope.pokemonGetPokemonData($scope.pokemonList.detail).types[0],
+        typeTwo = null,
+        typeCombined = null,
+        typeCombinedSeries = [];
+
+    if ( $scope.pokemonGetPokemonData($scope.pokemonList.detail).types.length === 2 ) {
+      typeTwo = $scope.pokemonGetPokemonData($scope.pokemonList.detail).types[1];
+      typeCombined = typeOne.toLowerCase() + '_' + typeTwo.toLowerCase();
+    } else {
+      typeCombined = typeOne.toLowerCase() + '_null';
+    }
+
+    for ( var i = 0; i < $scope.pokemonDB.typesEffectiveness[typeCombined].length; i++ ) {
+      if ( $scope.pokemonDB.typesEffectiveness[typeCombined][i] !== 1 ) {
+        typeCombinedSeries.push( {
+          name: $scope.pokemonDB.types[i],
+          color: $scope.pokemonGetEffectinessColors( $scope.pokemonDB.typesEffectiveness[typeCombined][i] ),
+          y: $scope.pokemonDB.typesEffectiveness[typeCombined][i]
+        } );
+      }
+    }
+
+    $scope.chartPokemonEffectiveness.series[0].data = typeCombinedSeries;
+    console.log( typeCombinedSeries );
 
   };
 

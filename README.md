@@ -6,5 +6,5 @@ PokéTactics supports trainers during Pokémon battle with quick access to key i
 
 ## Credits
 
-* Sprites: [Smogon](http://www.smogon.com/)
-* Pokemon Data: [Pokemon-Showdown](https://github.com/Zarel/Pokemon-Showdown)
+* Pokemon Sprites: [Smogon](http://www.smogon.com/)
+* Pokemon Data: [Pokemon-Showdown](https://github.com/Zarel/Pokemon-Showdown), [PokemonDB](http://pokemondb.net/type/dual)
