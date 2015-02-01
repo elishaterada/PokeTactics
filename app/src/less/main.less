@@ -25,7 +25,7 @@
  */
 
 body {
-  background: @brand-tertiary;
+  background: #F5F5F5;
 }
 
 /**
@@ -42,7 +42,7 @@ body {
 code, pre, .pre {
   padding: 5px;
   margin: 10px 0;
-  background-color: #EFEFEF;
+  background-color: #fff;
   border: 1px solid #DADADA;
   border-radius: 3px;
 }
@@ -74,6 +74,13 @@ h2 {
   .vertical-align-middle {
     display: table-cell;
     vertical-align: middle;
+  }
+}
+
+.btn.btn-default {
+  &:hover {
+      background: #fff;
+      color: @brand-primary;
   }
 }
 

@@ -57,6 +57,9 @@ angular.module( 'ngBoilerplate.home', [
  */
 .controller( 'HomeCtrl', ['$scope', function HomeController( $scope ) {
 
+  // Export Option
+  $scope.exportOption = false;
+
   // Initiate Pokemon Data
   $scope.pokemonDB = {
     pokedex: exports.BattlePokedex,
@@ -171,7 +174,8 @@ angular.module( 'ngBoilerplate.home', [
             fontWeight: 300
           },
           height: 200,
-          spacing: [0,0,0,0]
+          spacing: [0,0,0,0],
+          backgroundColor: null
         },
         title: null,
         legend: {
@@ -243,7 +247,8 @@ angular.module( 'ngBoilerplate.home', [
             fontFamily: 'Roboto',
             fontWeight: 300
           },
-          spacing: [0,0,0,0]
+          spacing: [0,0,0,0],
+          backgroundColor: null
         },
         title: null,
         legend: {

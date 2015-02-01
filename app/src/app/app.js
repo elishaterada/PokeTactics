@@ -24,9 +24,7 @@ angular.module( 'ngBoilerplate', [
     appName: 'PokéTactics',
     pokeSpritesSource: 'http://www.smogon.com/dex/media/sprites/xy/',
     colors: {
-      primary: '#26B5C0',
-      secondary: '#8D8DB7',
-      tertiary: '#C9D2DA'
+      primary: '#74ABB8'
     }
   };
   $rootScope.isEmpty = function (obj) {

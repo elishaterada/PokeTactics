@@ -9,6 +9,7 @@
         <div ng-repeat-end=""></div>
       </div>
     </div>
+    <button type="button" class="btn btn-default" ng-click="exportOption = true"><i class="fa fa-download fa-fw"></i> Export</button>
   </div>
   <div class="col-sm-6">
     <div class="well" ng-if="pokemonList.detail !== null">
@@ -17,6 +18,6 @@
   </div>
 </div>
 
-<pre>
-{{ pokemonList | json }}
-</pre>
+<div ng-if="exportOption === true">
+  <pre>{{ pokemonList | json }}</pre>
+</div>
