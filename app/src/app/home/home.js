@@ -90,7 +90,7 @@ angular.module( 'ngBoilerplate.home', [
     }
 
     // Reset Pokemon data
-    $scope.pokemonList.pokemon[index] = { key: null, learnset: null };
+    $scope.pokemonList.pokemon[index] = {key: null, learnset: null, item: null, status: null};
   };
 
   // Show Pokemon detail
