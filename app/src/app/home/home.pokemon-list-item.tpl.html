@@ -23,6 +23,9 @@
                     {{ type }}
                 </li>
             </ul>
+            <div class="pokemon-item">
+                <select chosen id="pokemon-{{$index}}-item" class="form-control" ng-model="pokemonList.pokemon[$index].item" ng-options="key as key for (key, value) in pokemonDB.items" data-placeholder="Item"></select>
+            </div>
         </div>
     </div>
     <div class="row">
