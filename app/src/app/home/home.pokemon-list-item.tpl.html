@@ -23,8 +23,11 @@
                     {{ type }}
                 </li>
             </ul>
-            <div class="pokemon-item">
-                <select chosen id="pokemon-{{$index}}-item" class="form-control" ng-model="pokemonList.pokemon[$index].item" ng-options="key as key for (key, value) in pokemonDB.items" data-placeholder="Item"></select>
+            <div class="pokemon-item data-section">
+                <select chosen id="pokemon-{{$index}}-item" class="form-control" ng-model="pokemonList.pokemon[$index].item" ng-options="key as value.name for (key, value) in pokemonDB.items" data-placeholder="Item"></select>
+            </div>
+            <div class="pokemon-status data-section">
+                <select chosen id="pokemon-{{$index}}-status" class="form-control" ng-model="pokemonList.pokemon[$index].status" ng-options="key as value for (key, value) in pokemonDB.statuses" data-placeholder="Status"></select>
             </div>
         </div>
     </div>

@@ -63,7 +63,8 @@ angular.module( 'ngBoilerplate.home', [
     abilities: exports.BattleAbilities,
     learnsets: exports.BattleLearnsets,
     pokedexLearnsetsMap: exports.BattlePokedexLearnsetsMap,
-    items: exports.BattleItems
+    items: exports.BattleItems,
+    statuses: exports.BattleStatuses
   };
 
   // Initiate Pokemon List
@@ -71,12 +72,12 @@ angular.module( 'ngBoilerplate.home', [
   $scope.pokemonList = {
     detail: null,
     pokemon: [
-      {key: null, learnset: null, item: null},
-      {key: null, learnset: null, item: null},
-      {key: null, learnset: null, item: null},
-      {key: null, learnset: null, item: null},
-      {key: null, learnset: null, item: null},
-      {key: null, learnset: null, item: null}
+      {key: null, learnset: null, item: null, status: null},
+      {key: null, learnset: null, item: null, status: null},
+      {key: null, learnset: null, item: null, status: null},
+      {key: null, learnset: null, item: null, status: null},
+      {key: null, learnset: null, item: null, status: null},
+      {key: null, learnset: null, item: null, status: null}
     ]
   };
 
