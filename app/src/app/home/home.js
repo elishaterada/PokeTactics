@@ -52,13 +52,25 @@ angular.module( 'ngBoilerplate.home', [
   };
 })
 
+.directive( 'pokeTotalEffectiveness', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'home/home.pokemon-total-effectiveness.tpl.html'
+  };
+})
+
 /**
  * And of course we define a controller for our route.
  */
 .controller( 'HomeCtrl', ['$scope', function HomeController( $scope ) {
 
-  // Export Option
-  $scope.exportOption = false;
+  // UI Options
+  $scope.showExport = false;
+  $scope.showTotalEffectiveness = true;
+
+  $scope.toggleTrueFalse = function(value) {
+    $scope[value] = !$scope[value];
+  };
 
   // Initiate Pokemon Data
   $scope.pokemonDB = {
@@ -69,7 +81,8 @@ angular.module( 'ngBoilerplate.home', [
     items: exports.BattleItems,
     statuses: exports.BattleStatuses,
     types: exports.BattleTypes,
-    typesEffectiveness: exports.BattleTypesEffectiveness
+    typesEffectiveness: exports.BattleTypesEffectiveness,
+    typesColors: exports.BattleTypesColors
   };
 
   // Initiate Pokemon List
@@ -101,8 +114,10 @@ angular.module( 'ngBoilerplate.home', [
   // Show Pokemon detail
   $scope.pokemonView = function(index) {
     $scope.pokemonList.detail = index;
+    $scope.showTotalEffectiveness = false;
     chartPokemonStats();
     chartPokemonEffectiveness();
+    chartPokemonTotalEffectiveness();
   };
 
   // Get Pokemon data from slug
@@ -230,8 +245,8 @@ angular.module( 'ngBoilerplate.home', [
       baseStats.atk,
       baseStats.def,
       baseStats.spa,
-      baseStats.spf,
-      baseStats.spd
+      baseStats.spd,
+      baseStats.spe
     ];
 
   };
@@ -320,9 +335,118 @@ angular.module( 'ngBoilerplate.home', [
     }
 
     $scope.chartPokemonEffectiveness.series[0].data = typeCombinedSeries;
-    console.log( typeCombinedSeries );
 
   };
+
+  // Get Pokemon Total Effectiveness Chart
+  var chartPokemonTotalEffectiveness = function() {
+
+    $scope.chartPokemonTotalEffectiveness = {
+      options: {
+        chart: {
+          type: 'bar',
+          zoomType: null,
+          style: {
+            fontFamily: 'Roboto',
+            fontWeight: 300
+          },
+          spacing: [0,0,0,0],
+          backgroundColor: null
+        },
+        title: null,
+        legend: {
+          enabled: false
+        },
+        xAxis: [{
+          type: 'category',
+          startOnTick: true,
+          endOnTick: true,
+          labels:{
+            enabled: true
+          },
+          tickWidth: 0,
+          lineWidth: 0
+        }],
+        yAxis: [{
+          min: 0,
+          max: 25.5,
+          title: {
+            enabled: false
+          },
+          labels: {
+            enabled: false
+          },
+          gridLineWidth: 0
+        }],
+        credits: {
+          enabled: false
+        },
+        tooltip: {
+          enabled: false
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        }
+      },
+      series: [{
+          lineWidth: 0,
+          color: $scope.config.colors.primary,
+          data: null
+      }]
+    };
+
+    // Get total effectiveness
+    var typeTotalEffectiveness = [ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ];
+    var typeTotalEffectivenessSeries = [];
+
+    for ( var i = 0; i < $scope.pokemonList.pokemon.length; i++ ) {
+
+      var pokemonKey = $scope.pokemonList.pokemon[i].key;
+
+      if ( $scope.pokemonList.pokemon[i].key !== null ) {
+
+        // Get type(s) data
+        var typeOne = $scope.pokemonGetPokemonData( pokemonKey ).types[0],
+            typeTwo = null,
+            typeCombined = null;
+
+        if ( $scope.pokemonGetPokemonData( pokemonKey ).types.length === 2 ) {
+          typeTwo = $scope.pokemonGetPokemonData( pokemonKey ).types[1];
+          typeCombined = typeOne.toLowerCase() + '_' + typeTwo.toLowerCase();
+        } else {
+          typeCombined = typeOne.toLowerCase() + '_null';
+        }
+
+        // Read type effectiveness and add it to total effectiveness
+        for ( var x = 0; x < typeTotalEffectiveness.length; x++ ) {
+          typeTotalEffectiveness[x] = typeTotalEffectiveness[x] + $scope.pokemonDB.typesEffectiveness[typeCombined][x];
+        }
+
+      }
+
+    }
+
+    // Use the final effectiveness to add data to chart
+    for ( var y = 0; y < typeTotalEffectiveness.length; y++ ) {
+      typeTotalEffectivenessSeries.push( {
+        name: $scope.pokemonDB.types[y],
+        color: $scope.pokemonDB.typesColors[$scope.pokemonDB.types[y]],
+        y: typeTotalEffectiveness[y]
+      } );
+    }
+
+    $scope.chartPokemonTotalEffectiveness.series[0].data = typeTotalEffectivenessSeries;
+
+  };
+
+  // Watch for Total Effectiveness chart
+  $scope.$watch('pokemonList.pokemon', function(){
+    chartPokemonTotalEffectiveness();
+  }, true);
 
 }])
 
