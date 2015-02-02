@@ -68,8 +68,8 @@ angular.module( 'ngBoilerplate.home', [
   $scope.showExport = false;
   $scope.showTotalEffectiveness = true;
 
-  $scope.toggleTrueFalse = function(value) {
-    $scope[value] = !$scope[value];
+  $scope.toggleExport = function() {
+    $scope.showExport = !$scope.showExport;
   };
 
   // Initiate Pokemon Data
@@ -189,7 +189,7 @@ angular.module( 'ngBoilerplate.home', [
             fontWeight: 300
           },
           height: 200,
-          spacing: [0,0,0,0],
+          spacing: [10,0,10,0],
           backgroundColor: null
         },
         title: null,
@@ -262,7 +262,7 @@ angular.module( 'ngBoilerplate.home', [
             fontFamily: 'Roboto',
             fontWeight: 300
           },
-          spacing: [0,0,0,0],
+          spacing: [10,0,10,0],
           backgroundColor: null
         },
         title: null,
@@ -336,6 +336,10 @@ angular.module( 'ngBoilerplate.home', [
 
     $scope.chartPokemonEffectiveness.series[0].data = typeCombinedSeries;
 
+    // Also set the right height for charts to avoid bar size fluctuation
+    var barHeight = 30;
+    $scope.chartPokemonEffectiveness.options.chart.height = typeCombinedSeries.length * barHeight;
+
   };
 
   // Get Pokemon Total Effectiveness Chart
@@ -350,7 +354,7 @@ angular.module( 'ngBoilerplate.home', [
             fontFamily: 'Roboto',
             fontWeight: 300
           },
-          spacing: [0,0,0,0],
+          spacing: [10,0,10,0],
           backgroundColor: null
         },
         title: null,

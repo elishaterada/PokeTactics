@@ -1,7 +1,11 @@
 <div class="text-right">
   <button type="button" class="btn btn-default" ng-click="showTotalEffectiveness = true; pokemonList.detail = null"><i class="fa fa-bar-chart fa-fw"></i> Total Effectiveness</button>
   &nbsp;
-  <button type="button" class="btn btn-default" ng-click="toggleTrueFalse(showExport)"><i class="fa fa-download fa-fw"></i> Export</button>
+  <button type="button" class="btn btn-default" ng-click="toggleExport()"><i class="fa fa-download fa-fw"></i> Export</button>
+</div>
+
+<div ng-if="showExport">
+  <pre>{{ pokemonList.pokemon | json }}</pre>
 </div>
 
 <div class="row dashboard">
@@ -22,8 +26,4 @@
       <poke-list-item-detail></poke-list-item-detail>
     </div>
   </div>
-</div>
-
-<div ng-if="showExport">
-  <pre>{{ pokemonList | json }}</pre>
 </div>
