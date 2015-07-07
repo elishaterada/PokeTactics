@@ -1,6 +1,6 @@
 # PokeTactics
 
-[poketactics.nests.io]()
+[http://poketactics.nests.io]()
 
 ## Summary
 
